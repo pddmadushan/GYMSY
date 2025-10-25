@@ -1,0 +1,201 @@
+﻿<UserControl x:Class="CMSXtream.Pages.DataEntry.SendSMS"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"   
+             xmlns:txtMask="clr-namespace:CMSXtream.Control" 
+             xmlns:mycls="clr-namespace:CMSXtream.Pages.DataEntry" 
+             mc:Ignorable="d" Width="1060" >
+    <UserControl.Resources >
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/StyleResource/DataGridStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/StyleResource/IconLibrary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="0,0,0,0" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="420"  />
+            <ColumnDefinition Width="210" />
+            <ColumnDefinition Width="250" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBox x:Name="txtRichBox"  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Height="244" Width="408" Text="" AcceptsReturn="True"   VerticalAlignment="Top" MaxLength="640" TextChanged="txtRichBox_TextChanged" TextWrapping="Wrap" />
+        <GroupBox x:Name="grpBoxStudent" Grid.Column="0"  Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5" Margin="0,249,0,0"  VerticalAlignment="Top" Height="359" Grid.RowSpan="2" >
+            <GroupBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </GroupBox.RenderTransform>
+            <GroupBox.Header>
+                <Grid Margin="0,0,0,0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"  />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <mui:ModernButton Grid.Row="0" Grid.Column="0" x:Name="btnAddNew" IconData="{Binding Data, Source={StaticResource ImgAddStudent}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Add Student to Send SMS" Margin="5,0,0,0" Click="btnAddNew_Click"/>
+                    <Label Grid.Row="0" Grid.Column="1" x:Name="SearchText" FontWeight="Bold" Margin="5,0,0,0" />
+                </Grid>
+            </GroupBox.Header>
+            <Grid Margin="0,5,0,0">
+           
+                    <DataGrid Name="grdSMSList" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="True" 
+                          RowHeaderWidth="35" EnableRowVirtualization = "True" 
+                          LoadingRow="DataGrid_LoadingRow" PreviewMouseDoubleClick="grdSMSList_PreviewMouseDoubleClick" ToolTip="Double click on the row to view SMS history" Margin="0,0,0,0" Height="320" >
+                        <DataGrid.Resources>
+                            <mycls:DoubleToVisaulConverter x:Key="DoubleToVis" />
+                        </DataGrid.Resources>
+                        <DataGrid.Columns  >
+                            <DataGridTextColumn Header="ID" Binding="{Binding Path=CLS_ID}" IsReadOnly="True"  Width="100" Visibility="Hidden" />
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=STD_ID}" IsReadOnly="True"  Width="50" Visibility="Hidden"  />
+                        <DataGridTextColumn Header="MC ID" Binding="{Binding Path=ATT_ID}" IsReadOnly="True"  Width="100" />
+                            <DataGridTextColumn Header="Name" Binding="{Binding Path=STD_INITIALS}" IsReadOnly="True" Width="300" />
+                        <DataGridTextColumn Header="Catogory" Binding="{Binding Path=CLS_NAME}" IsReadOnly="True" Width="200" Visibility="Hidden" />
+                            <DataGridTextColumn Header="Telephone" Binding="{Binding Path=STD_TELEPHONE}" IsReadOnly="True" Width="85" />
+                            <DataGridTemplateColumn Width="38" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <mui:ModernButton x:Name="btnEdit" IconData="{Binding Data, Source={StaticResource ImgEdit}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Edit Record" Click="btnEdit_Click"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellStyle >
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding STD_PAID_STATUS}" Value="0">
+                                                <Setter Property="Background" Value="White" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding STD_PAID_STATUS}" Value="1">
+                                                <Setter Property="Background" Value="Red" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTemplateColumn.CellStyle>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn  Width="30" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <mui:ModernButton x:Name="btnComments" IconData="{Binding Data, Source={StaticResource ImgAlert}}"  EllipseDiameter="25" EllipseStrokeThickness="0" ToolTip="{Binding Path= STD_TEMP_NOTE }"  
+                                                                       Visibility="{Binding Path=STD_COMMENT_FLG,Converter={StaticResource DoubleToVis}}"  />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellStyle >
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding STD_COMMENT_FLG}" Value="0">
+                                                <Setter Property="Background" Value="White" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding STD_COMMENT_FLG}" Value="1">
+                                                <Setter Property="Background" Value="#FFFFF300" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTemplateColumn.CellStyle>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>         
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Height="244" VerticalAlignment="Top" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"  />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Label Content="Max Characters:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="87" Grid.Row="0" Grid.Column="0"/>
+            <Label Content="Remaining Characters:" HorizontalAlignment="Left"  VerticalAlignment="Bottom"  Grid.Row="2" Grid.Column="0"/>
+            <Label x:Name="MaxCharector" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="76"  Grid.Row="1" Grid.Column="0" >
+                <Label.Content >
+                    <Binding Path="MaxLength" ElementName="txtRichBox" />
+                </Label.Content>
+            </Label>
+            <Label  x:Name="RemainingChar"  HorizontalAlignment="Left"   VerticalAlignment="Top" Width="76" Grid.Row="3" Grid.Column="0">
+                <Label.Content>
+                    <Binding Path="MaxLength" ElementName="txtRichBox" />
+                </Label.Content>
+            </Label>
+            <Label Content="Checking Number" HorizontalAlignment="Left"  VerticalAlignment="Bottom"  Grid.Row="4" Grid.Column="0"/>
+            <txtMask:MaskedTextBox HorizontalAlignment="Left"  x:Name="txtTelephoneNumber"   MaxWidth="150" Text="0" Height="22" Width="111" Grid.Row="5" Grid.Column="0" Margin="10,2,0,2"/>
+            <Button  HorizontalAlignment="Left"  VerticalAlignment="Top" Width="94" ToolTip="Send Message" Click="Button_Click"  Grid.Row="6" Grid.Column="0" Margin="10,8,0,-7">
+                <Image Name="imgSendSMS" Source ="pack://application:,,,/Image/SendSMS.png" Width="60" Height="60" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   >
+                </Image>
+            </Button>
+            <Button x:Name="btnDelete"   ToolTip="Delete Pending SMS to be sent" Padding="0,0" BorderThickness="1" Margin="122,38,-37,0" Click="btnDelete_Click" Grid.Row="6" Grid.Column="0" RenderTransformOrigin="1.8,1.231" >
+                <Image Name="imgDelete" Source ="pack://application:,,,/Image/ImgBtnDelete.png" Width="27" Height="28" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" RenderTransformOrigin="0.444,0.589"   >
+                </Image>
+            </Button>
+        </Grid>
+        <GroupBox x:Name="grpBoxHistory" Grid.Column="2" Grid.RowSpan="2" Margin="0,0,-167,0">
+            <GroupBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </GroupBox.RenderTransform>
+            <GroupBox.Header>
+                <Label Content="SMS History"/>
+            </GroupBox.Header>
+
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25.521" />
+                    <ColumnDefinition Width="47.479"/>
+                    <ColumnDefinition Width="450"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <CheckBox x:Name="chkAll" Grid.Row="0" Grid.ColumnSpan="3" Checked="chkAll_Checked" Margin="0,0,87,0" >All</CheckBox>
+                <TextBox Name="txtEmpNumber"  Grid.Row="1" MaxLines="1" MaxLength="8" Margin="0,5,417.442,5" Grid.ColumnSpan="3" />
+                <mui:ModernButton Grid.Row="1"  x:Name="btnSearchSMS" IconData="{Binding Data, Source={StaticResource ImgSearch}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Search History" RenderTransformOrigin="7.112,0.419" Margin="40,0,371.442,0" Grid.Column="2" Click="btnSearchSMS_Click" />
+
+                <ScrollViewer Grid.Row="2" Grid.ColumnSpan="3" Height="535" VerticalAlignment="Top" HorizontalAlignment="Left" Width="406" Margin="0,0,0,0">
+                    <DataGrid Name="grdSMSHistory" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="True" PreviewMouseDoubleClick="grdSMSHistory_PreviewMouseDoubleClick" 
+                              ToolTip="Double click on the row to forward SMS" Height="535" FontSize="9" RowHeight="60" PreviewKeyDown="grdSMSHistory_PreviewKeyDown" Width="401" >
+                        <DataGrid.Columns  >
+                            <DataGridTextColumn Header="ID" Binding="{Binding Path=INBOX_ID}" IsReadOnly="True"  Width="100" Visibility="Hidden" />
+                            <DataGridTextColumn Header="ID" Binding="{Binding Path=STD_ID}" IsReadOnly="True"  Width="50" Visibility="Hidden"/>
+                            <DataGridTextColumn  Binding="{Binding Path=SMS_INFO}" IsReadOnly="True" Width="100" />
+                            <DataGridTextColumn Binding="{Binding Path=CLS_MESSAGE}" IsReadOnly="True" Width="260">
+                                <DataGridTextColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="ToolTip"  >
+                                            <Setter.Value>
+                                                <ToolTip Width="300" Height="400">
+                                                    <TextBlock Text="{Binding CLS_MESSAGE}" />
+                                                </ToolTip>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="Width" Value="auto"/>
+                                        <Setter Property="Height" Value="auto"/>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+            </Grid>
+
+        </GroupBox>
+
+    </Grid>
+</UserControl>

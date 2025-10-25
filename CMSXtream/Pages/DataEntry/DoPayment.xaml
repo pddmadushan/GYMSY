@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="CMSXtream.Pages.DataEntry.DoPayment"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI" 
+             xmlns:local="clr-namespace:CMSXtream.Control" 
+             mc:Ignorable="d">
+    <UserControl.Resources >
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/StyleResource/ComboBoxStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/StyleResource/DataGridStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/StyleResource/IconLibrary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="250" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Name="lblClass" Grid.Row="1" Grid.Column="0" />
+        <ComboBox x:Name="cmbClsGroup" Grid.Row="0" Grid.Column="0" Style="{DynamicResource ComboBoxFlatStyle}" TabIndex="0" SelectionChanged="cmbClsGroup_SelectionChanged" Margin="0,0,5,0" Visibility="Hidden"  />
+        <Label Name="lblYearMonth" Grid.Row="1" Grid.Column="1" Visibility="Hidden" />
+        <DatePicker Name="dtpPayMonth" Grid.Row="1" Grid.Column="1" Margin="0,0,131,0" local:DatePickerCalendar.IsMonthYear="True" local:DatePickerDateFormat.DateFormat="MMM-yyyy" Text="MMM-yyyy" SelectedDateChanged="dtpPayMonth_SelectedDateChanged" />
+         <Label Grid.Row="3" Grid.Column="0" Content="Monthly Member Fee" Margin="0,5,126,0" />
+        <TextBox Grid.Row="3" Grid.Column="1" Name="txtAmount" IsEnabled="False" Margin="0,5,140,0" TextAlignment="Right" PreviewTextInput="NumberValidationTextBox"  MaxLength="6"  />
+        <CheckBox Grid.Row="4" Grid.Column="1"  Name="chkCardIssue" Content="Card Issued" Checked="chkCardIssue_Checked" Unchecked="chkCardIssue_Unchecked" Visibility="Hidden" />
+        <GroupBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Header="Payment Area" >
+            <Grid  VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="115" />
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />                    
+                    <RowDefinition Height="5" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="1" Grid.Column="1" Content="Payment for" Margin="0,5,0,5" />
+                <ComboBox x:Name="cmbPaidMonth" Grid.Row="1" Grid.Column="2" Style="{DynamicResource ComboBoxFlatStyle}" Margin="0,0,0,5" SelectionChanged="cmbPaidMonth_SelectionChanged">
+                </ComboBox>
+                <DatePicker Grid.Row="2" Name="dtpDatePicke" Grid.Column="2" SelectedDateChanged="dtpDatePicke_SelectedDateChanged" Margin="0,0,0,2"/>
+                <Label Grid.Row="2" Grid.Column="1" Content="Payment Start Date" Margin="0,5,0,5" />
+                <DatePicker Grid.Row="3" Name="dtpDatePaid" Grid.Column="2" Margin="0,0,0,2"/>
+                <Label Grid.Row="3" Grid.Column="1" Content="Paid Date" Margin="0,5,0,5" />
+                <Label Grid.Row="2" Grid.Column="3" Content="  till " Margin="0,5,39,0" />
+                <DatePicker Grid.Row="2" Name="dtpValidTillDate" Grid.Column="3" Height="28" VerticalAlignment="Top" Margin="26,0,32,0" Grid.ColumnSpan="2" IsEnabled="False" />
+                <CheckBox Name="rdoBtn" Grid.Row="4" Grid.Column="3" Content="Full Payment" HorizontalAlignment="Right" Width="111" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked" Margin="0,0,0,5" />
+                <TextBox Grid.Row="4" Grid.Column="2" Name="txtPayment" PreviewTextInput="NumberValidationTextBox" TextAlignment="Right"   MaxLength="6" Margin="0,0,0,5" />
+                <mui:ModernButton x:Name="btnDoPayment" Grid.Row="5" Grid.Column="2"  IconData="{Binding Data, Source={StaticResource ImgPayment}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Make Payment" Click="btnDoPayment_Click"   />
+            </Grid>
+        </GroupBox>
+        <DataGrid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Name="grdPayHistory" AutoGenerateColumns="False"  CanUserAddRows="False" RowHeaderWidth="0"  CanUserDeleteRows="False"  >
+            <DataGrid.Columns  >
+                <DataGridTextColumn Header="" Binding="{Binding Path=STD_REC_DATE, StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="100" Visibility="Hidden" />
+                <DataGridTextColumn Header="Paid Date" Binding="{Binding Path=ACTUAL_PAID_DATE, StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="100" />
+                <DataGridTextColumn Header="Paid Month" Binding="{Binding Path=PAID_FOR_MONTHS}" IsReadOnly="True" Width="80" />
+                <DataGridTextColumn Header="Due Date" Binding="{Binding Path=VALID_DUE_DATE, StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="100" />
+                <DataGridTextColumn Header="Payment" Binding="{Binding Path=PAID_AMOUNT}" IsReadOnly="True" Width="140"/>
+                <DataGridTemplateColumn Header="" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mui:ModernButton x:Name="btnDelete" IconData="{Binding Data, Source={StaticResource ImgDelete}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Delete Payment" Click="btnDelete_Click" Margin="15,0,0,0" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Name="lblChange" Content="Change Amount" Grid.Column="1" HorizontalAlignment="Left" Margin="115,5,0,0" Grid.Row="3" VerticalAlignment="Top"   Height="20" Width="100" Foreground="#FF001B95" Cursor="Hand" Background="#FFDCEAEC" MouseDoubleClick="Label_MouseDoubleClick" ToolTip="Double click to change" />
+        <Label Name="lblUpdate" Content="Update Amount" Grid.Column="1" HorizontalAlignment="Left" Margin="115,5,0,0" Grid.Row="3" VerticalAlignment="Top"   Height="20" Width="100" Foreground="#FF001B95" Cursor="Hand" Background="#FFDCEAEC"  Visibility="Hidden" MouseDoubleClick="lblUpdate_MouseDoubleClick" ToolTip="Double click to update"/>
+        <Button x:Name="btnSave"  Grid.Row="7" Grid.Column="1"  ToolTip="Save Record" Padding="0,0" BorderThickness="1"  Margin="198,5,10,10" Click="btnSave_Click" >
+            <Image Name="imgSave" Source ="pack://application:,,,/Image/ImgBtnSave.png" Width="40" Height="40" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   >
+            </Image>
+        </Button>
+    </Grid>
+</UserControl>

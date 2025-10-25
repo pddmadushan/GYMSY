@@ -1,0 +1,10 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Viewer="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer" x:Class="LINSISReportViewer.CristalReportViewer"
+        Title="CristalReportViewer" Height="Auto" Width="Auto">
+    <Grid>
+        <WindowsFormsHost />
+        <Viewer:CrystalReportsViewer Name="cryRptViewer" HorizontalAlignment="Left" VerticalAlignment="Top" ShowToolbar="True" ShowToggleSidePanelButton="False" ShowStatusbar="True" ShowSearchTextButton="True" ShowRefreshButton="True" ShowPrintButton="True" ShowPrevPageButton="True" ShowNextPageButton="True" ShowLogo="False" ShowGoToPageButton="True" ShowCopyButton="False" ToggleSidePanel="None" ShowExportButton="True" />
+    </Grid>
+</Window>

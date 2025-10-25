@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/CMSXtream/bin/Debug
+/CMSXtream/obj/Debug
+/LINSISReportViewer/bin/Debug
+/LINSISReportViewer/obj
+/packages
+/XtreamDataAccess/bin/Debug
+/XtreamDataAccess/obj

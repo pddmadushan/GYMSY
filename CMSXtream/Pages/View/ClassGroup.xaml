@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="CMSXtream.Pages.View.ClassGroup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI" 
+             mc:Ignorable="d" >
+    <UserControl.Resources >
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/StyleResource/DataGridStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/StyleResource/IconLibrary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+    <GroupBox x:Name="grpBoxStudent"  Grid.Row="2" Grid.Column="0" >
+        <GroupBox.Header>
+            <mui:ModernButton x:Name="btnAddNew" IconData="{Binding Data, Source={StaticResource ImgAddStudent}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Add Class" Click="btnAddNew_Click"/>
+        </GroupBox.Header>
+        <Grid Margin="0,5,0,0">
+            <DataGrid Name="grdClass" AutoGenerateColumns="False"  CanUserAddRows="False" RowHeaderWidth="0" EnableRowVirtualization = "True"  CanUserDeleteRows="False"  >
+                <DataGrid.Columns  >
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=CAT_ID}" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="IS_CLASS_FLG" Binding="{Binding Path=IS_CLASS_FLG}" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="TOTAL_NUMBER_OF_WEEK" Binding="{Binding Path=TOTAL_NUMBER_OF_WEEK}" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=CLS_ID}" IsReadOnly="True"  Visibility="Hidden"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Path=CLS_NAME}" IsReadOnly="True" Width="200"  />
+                    <DataGridTextColumn Header="Category" Binding="{Binding Path=CAT_NAME}" IsReadOnly="True" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="Start Date" Binding="{Binding Path=CLS_START_DATE , StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="80" Visibility="Hidden" />
+                    <DataGridTextColumn Header="Day" Binding="{Binding Path=CLS_DAY_NAME}" IsReadOnly="True" Width="100" Visibility="Hidden" />
+                    <DataGridTextColumn Header="Time" Binding="{Binding Path=CLS_TIME}" IsReadOnly="True"  Width="70" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="Duration" Binding="{Binding Path=CLS_DURATION}" IsReadOnly="True"  Width="100" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="Class fee" Binding="{Binding Path=CLS_FEE}" IsReadOnly="True" Width="70" />
+                    <DataGridTextColumn Header="Admition fee" Binding="{Binding Path=CLS_ADMITION_AMT}" IsReadOnly="True" Width="100"  Visibility="Hidden" />
+                    <DataGridTextColumn Header="Comment" Binding="{Binding Path=CLS_COMMENT}" IsReadOnly="True"  Width="150"  Visibility="Hidden"/>
+                    <DataGridCheckBoxColumn Header="Active" Binding="{Binding Path=CLS_ACTIVE_FLG}" IsReadOnly="True" Width="50" />
+                    <DataGridTemplateColumn Width="50" Header="View" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <mui:ModernButton x:Name="btnEdit" IconData="{Binding Data, Source={StaticResource ImgEdit}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Edit Record" Click="btnEdit_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="50"  Header="Heads" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <mui:ModernButton x:Name="btnveiwStudent" IconData="{Binding Data, Source={StaticResource ImgStudents}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="View Member" Click="btnveiwStudent_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </GroupBox>
+</UserControl>
+

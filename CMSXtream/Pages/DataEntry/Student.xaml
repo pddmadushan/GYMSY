@@ -1,0 +1,341 @@
+﻿<UserControl xmlns:Control="clr-namespace:CMSXtream.Control"  x:Class="CMSXtream.Pages.DataEntry.Student"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI" 
+             xmlns:mycls="clr-namespace:CMSXtream.Pages.DataEntry" 
+             xmlns:txtMask="clr-namespace:CMSXtream.Control" 
+             mc:Ignorable="d" d:DesignWidth="1000" >
+    <UserControl.Resources >
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/StyleResource/ComboBoxStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/StyleResource/DataGridStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/StyleResource/IconLibrary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <GroupBox x:Name="grpBoxStudent"  Grid.Row="1" Grid.Column="0"   >
+            <GroupBox.Header>
+                <mui:ModernButton x:Name="btnSendSMS" IconData="{Binding Data, Source={StaticResource ImgSMS}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Send SMS" Click="btnSendSMS_Click" />
+            </GroupBox.Header>
+            <Grid HorizontalAlignment="Left" Margin="0,10,0,0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition MinWidth="250" Width="250*"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition MinWidth="150" Width="270*"/>
+                    <ColumnDefinition Width="173*"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="0" />
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="Auto" MinHeight="72" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Name="lblClassId" Visibility="Hidden"/>
+                <Label Content="Fitness Group:" Grid.Row="0" Grid.Column="0" FontWeight="Bold"/>
+                <Image x:Name="imgProfilePic" Grid.Column="5" HorizontalAlignment="Right" Height="150" Grid.RowSpan="5" VerticalAlignment="Top" Width="150" ToolTip="use only: jpg, png, jpeg" Margin="0,0,5,5"/>
+                <ComboBox x:Name="cmbClsGroup" Grid.Row="0" Grid.Column="1" SelectionChanged="cmbClsGroup_SelectionChanged" Style="{DynamicResource ComboBoxFlatStyle}" TabIndex="0" />
+                <Label Content="Monthly Fee:" Grid.Row="0" Grid.Column="2" Margin="10,0,6,4" FontWeight="Bold"/>
+                <TextBox  x:Name="txtClsFee" Grid.Row="0" Grid.Column="3" Margin="0,0,0,4" PreviewTextInput="NumberValidationTextBox" TextAlignment="Right" MaxLength="6" TabIndex="1"   >
+                    <TextBox.Text >
+                        <Binding Path="SelectedItem.CLS_FEE" ElementName= "cmbClsGroup" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"></Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <Label Content="Week for the Reminder:" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" FontWeight="Bold" Margin="20.333,0,164.333,0" Visibility="Hidden" />
+                <TextBox  x:Name="txtLastWeek" Grid.Row="0" Grid.Column="5"  PreviewTextInput="NumberValidationTextBox" TextAlignment="Right" MaxLength="6" TabIndex="1" Margin="41.667,0,106.333,0" Visibility="Hidden" />
+                <Label  Content="Calling Name:" Grid.Row="2" Grid.Column="0"/>
+                <TextBox x:Name="txtInitials" Grid.Row="2" Grid.Column="1" Margin="0,0,0,4" MaxLength="100" MaxWidth="500" TabIndex="2"  />
+
+                <Label  Content="MC ID:" Grid.Row="2" Grid.Column="2" Margin="10,0,6,4"  FontWeight="Bold"/>
+                <Label   x:Name="lblStudentId"  Content="[New Student]" Grid.Row="2" Grid.Column="3" Visibility="Hidden" />
+                <Label   x:Name="lblDisplayId"  Content="[New Student]" Grid.Row="2" Grid.Column="3"  />
+
+                <Label Visibility="Hidden" Content="Introducer" Grid.Row="2" Grid.Column="4"  FontWeight="Bold" Margin="29,0,0,0"/>
+                <mui:ModernButton Visibility="Hidden" x:Name="btnveiwStudent" Grid.Row="2" Grid.Column="4" IconData="{Binding Data, Source={StaticResource ImgStudents}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="View Introducer" Margin="0.333,0,68.333,0" Click="btnveiwStudent_Click" />
+                <Label Visibility="Hidden"  x:Name="lblStudentIntroduced"  Content="[Introduced Student]" Grid.Row="2" Grid.Column="5" Margin="34,0,0,0"  />
+                <mui:ModernButton Visibility="Hidden" x:Name="btnAddIntroducer" Grid.Row="2" Grid.Column="5" IconData="{Binding Data, Source={StaticResource ImgAddStudent}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Add Introducer" Click="btnAddIntroducer_Click" RenderTransformOrigin="-5.481,0.5" Margin="0,0,171,0" />
+
+                <Label Content="Name Tag:" Grid.Row="3" Grid.Column="0"/>
+                <TextBox x:Name="txtSurName" Grid.Row="3" Grid.Column="1" Margin="0,0,0,4" MaxLength="100"  MaxWidth="500" TabIndex="3" />
+
+                <Label Content="Full Name:" Grid.Row="4" Grid.Column="0"  />
+                <TextBox  x:Name="txtFullName" Grid.Row="4" Grid.Column="1" Margin="0,0,0,4" MaxLength="250" MaxWidth="500" TabIndex="4" >
+                    <TextBox.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="Text" ElementName="txtInitials" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
+                            <Binding Path="Text" ElementName="txtSurName" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
+                        </MultiBinding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <Label Content="Gender:" Grid.Row="8" Grid.Column="0"/>
+                <Grid   Grid.Row="8" Grid.Column="1" Margin = "0,0,0,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+
+                    <RadioButton x:Name="rbtnMale"  Grid.Row="0" Grid.Column="0" Content="Male" GroupName="a" UseLayoutRounding="False" TabIndex="7" Checked="rbtnMale_Checked"  />
+                    <RadioButton x:Name="rbtnFemale" Grid.Row="0" Grid.Column="1" Content="Female" GroupName="a" Checked="rbtnFemale_Checked" >
+                    </RadioButton>
+                </Grid>
+
+                <Label Content="Birthday:" Grid.Row="6" Grid.Column="0" Visibility="Hidden" Margin="0,0,0,30" Grid.RowSpan="2"/>
+                <DatePicker x:Name="dtpBirthday" Grid.Row="6" Grid.Column="1" Margin="0,0,0,30" Visibility="Hidden" Grid.RowSpan="2" >
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" Value="True"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+
+                <Label Content="Join Date:" Grid.Row="9" Grid.Column="0"/>
+                <DatePicker  x:Name="dtpJoinDate" Grid.Row="9" Grid.Column="1" Margin="0,0,0,4"  SelectedDate="{x:Static sys:DateTime.Now}" TabIndex="11"  >
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" Value="True"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+
+                <Label Content="NIC Number:" Grid.Row="10" Grid.Column="0"  />
+                <TextBox x:Name="txtNICNumber" Grid.Row="10" Grid.Column="1" Margin="0,0,0,4" MaxLength="15" MaxWidth="500"  CharacterCasing="Upper" TabIndex="8"   />
+
+                <Label Content="Telephone no:" Grid.Row="5" Grid.Column="0" Margin="0,0,4,0"/>
+                <txtMask:MaskedTextBox x:Name="txtTelephoneNumber" Grid.Row="5" Grid.Column="1" Margin="0,0,125,4"  MaxWidth="500"  PreviewTextInput="NumberValidationTextBox" 
+                       TabIndex="5"   />
+                <txtMask:MaskedTextBox x:Name="txtTelephoneNumber2" Grid.Row="5" Grid.Column="1" Margin="130,0,0,4"  MaxWidth="500"  PreviewTextInput="NumberValidationTextBox" 
+                       TabIndex="5"   />
+
+                <Label Content="E-Mail:" Grid.Row="11" Grid.Column="0"/>
+                <TextBox x:Name="txtEmail" Grid.Row="11" Grid.Column="1" Margin="0,0,0,4" MaxWidth="500" TabIndex="9" />
+
+                <Label Content="Address:" Grid.Row="12" Grid.Column="0"/>
+                <TextBox x:Name="txtAdders" Grid.Row="12" Grid.Column="1" Margin="0,0,0,4" MaxLength="250"  TextWrapping="Wrap" AcceptsReturn="True" MaxWidth="500" TabIndex="10" />
+
+                <Label Content="Comment:" Grid.Row="7" Grid.Column="0"/>
+                <TextBox  x:Name="txtComment"  Grid.Row="7" Grid.Column="1" Margin="0,0,0,4"  MaxLength="250" TextWrapping="Wrap" AcceptsReturn="True" MaxWidth="500" TabIndex="6" />
+
+                <Label Content="Note:" Grid.Row="13" Grid.Column="0"/>
+                <TextBox  x:Name="txtNote"  Grid.Row="13" Grid.Column="1" Margin="0,0,0,10"  MaxLength="250" TextWrapping="Wrap" AcceptsReturn="True" MaxWidth="500" Background="#FFFFF300" TabIndex="12" />
+
+
+                <Label Content="Status:" Grid.Row="14" Grid.Column="0"/>
+                <Label Name="ActiveStatus" Content="" Grid.Row="14" Grid.Column="0" Visibility="Hidden"/>
+                <Label Name="ActiveStatusSecond" Content="" Grid.Row="14" Grid.Column="0" Visibility="Hidden"/>
+                <RadioButton  x:Name="chkActive" Grid.Row="14" Grid.Column="1" Margin="0,0,0,39" IsChecked="True"  GroupName="chk" Content="Attending" TabIndex="13" Click="chkActive_Click" />
+                <CheckBox  x:Name="chkEnableTosec" Grid.Row="14" Grid.Column="2" Margin="10,0,0,39" Grid.ColumnSpan="2" IsChecked="False"  Content="Enable to second finger print machine" TabIndex="14" Checked="chkEnableTosec_Checked" Unchecked="chkEnableTosec_Unchecked" />
+                <mui:ModernButton x:Name="btnPrintrid" Grid.Row="14" Grid.Column="4" IconData="{Binding Data, Source={StaticResource ImgPrint}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Finger Print Summery" Margin="10,0,83,44" Click="btnPrintrid_Click" />
+                <RadioButton  x:Name="chkInactive" Grid.Row="14" Grid.Column="1" Margin="0,21,0,19" GroupName="chk" Content="Temporarily Inactive" Click="chkInactive_Click" />
+                <RadioButton  x:Name="chkInactivePernt" Grid.Row="14" Grid.Column="1" Margin="0,41,0,0"  GroupName="chk"  Content="Permanently Inactive" Click="chkInactivePernt_Click"/>
+                <ComboBox x:Name="cmbInactiveReason" Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="4" Style="{DynamicResource ComboBoxFlatStyle}" Height="25" Margin="141,34,44,14" />
+                <mui:ModernButton x:Name="btnAddReason" Grid.Row="14" Grid.Column="4" HorizontalAlignment="Right"  IconData="{Binding Data, Source={StaticResource ImgAddTute}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Define reasons"  Click="btnAddReason_Click" Margin="0,21,0,0"/>
+
+                <mui:ModernButton x:Name="btnSMStoNew" Grid.Row="14" Grid.Column="5" HorizontalAlignment="Left"  IconData="{Binding Data, Source={StaticResource ImgSMS}}"  EllipseDiameter="25" EllipseStrokeThickness="1"  ToolTip="Send SMS"  Click="btnSendSMS_Click" Margin="0,21,0,0"/>
+
+                <Button x:Name="btnSave"  Grid.Row="14" Grid.Column="5"  ToolTip="Save Record" Click="btnSave_Click" Padding="0,0" BorderThickness="1"  Margin="29,5,95,5" >
+                    <Image Name="imgSave" Source ="pack://application:,,,/Image/ImgBtnSave.png" Width="60" Height="60" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   >
+                    </Image>
+                </Button>
+                <Button x:Name="btnDelete"  Grid.Row="14" Grid.Column="5" ToolTip="Delete Record" Padding="0,0" BorderThickness="1" Margin="109,5,11,5" Click="btnDelete_Click" Visibility="Hidden"  >
+                    <Image Name="imgDelete" Source ="pack://application:,,,/Image/ImgBtnDelete.png" Width="60" Height="60" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="Hidden"  >
+                    </Image>
+
+                </Button>
+                <GroupBox x:Name="grpStudentHistory"  Grid.Row="3" Grid.RowSpan="10" Grid.Column="2" Grid.ColumnSpan="4" Header="Payment History" Margin="20,50,3,0" >
+                    <TabControl Name="tabStudentHitory" HorizontalAlignment="Left" Height="Auto"   VerticalAlignment="Top" Width="Auto" MaxHeight="400" >
+                        <TabItem Header=" Monthly Payments ">
+                            <GroupBox x:Name="grpNextMonthPayment"  >
+                                <GroupBox.Header>
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30" />
+                                            <ColumnDefinition Width="30" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30" />
+                                        </Grid.RowDefinitions>
+                                        <mui:ModernButton x:Name="btnNextMonthPayment" IconData="{Binding Data, Source={StaticResource ImgPayment}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Add Next Month Payment" Click="btnNextMonthPayment_Click"/>
+                                        <mui:ModernButton x:Name="btnViewHostory" Grid.Column="1" IconData="{Binding Data, Source={StaticResource ImgHistory}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="View Attendance History" Click="btnViewHostory_Click" />
+                                    </Grid>
+                                </GroupBox.Header>
+                                <DataGrid Name="grdStudentClass" AutoGenerateColumns="False"  CanUserAddRows="False" RowHeaderWidth="0"  >
+                                    <DataGrid.Columns  >
+                                        <DataGridTextColumn Header="STM_YEAR" Binding="{Binding Path=STM_YEAR}" Visibility="Hidden" />
+                                        <DataGridTextColumn Header="STM_MONTH" Binding="{Binding Path=STM_MONTH}" Visibility="Hidden" />
+                                        <DataGridTextColumn Header="CLS_ID" Binding="{Binding Path=CLS_ID}" Visibility="Hidden" />
+                                        <DataGridTextColumn Header="Year" Binding="{Binding Path=STM_YEAR}"  IsReadOnly="True" Visibility="Hidden" />
+                                        <DataGridTextColumn Header="Month" Binding="{Binding Path=STM_MONTH_NAME}"  IsReadOnly="True" Width="70" />
+                                        <DataGridTextColumn Header="Class" Binding="{Binding Path=CLS_NAME}" IsReadOnly="True"  Width="140" Visibility="Hidden" />
+                                        <DataGridTextColumn Header="Total" Binding="{Binding Path=TO_CLS_COUNT}"  IsReadOnly="True" Width="40" Visibility="Hidden"/>
+                                        <DataGridTemplateColumn Header="Attend" Width="55" Visibility="Hidden">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Label Content="{Binding Path=ATT_COUNT}"  />
+                                                        <mui:ModernButton x:Name="btnViewHostory" IconData="{Binding Data, Source={StaticResource ImgHistory}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="View Attendance History" Click="btnViewHostory_Click" Margin="15,0,0,0" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridCheckBoxColumn Header="Card" Binding="{Binding Path=CARD_ISSUED_FLG}" IsReadOnly="True" Width="40" Visibility="Hidden"/>
+                                        <DataGridTextColumn Header="Fee" Binding="{Binding Path=CLASS_FEE}"  IsReadOnly="True"  Width="60"/>
+                                        <DataGridTextColumn Header="Paid" Binding="{Binding Path=CLASS_FEE_PAYMENT}"  IsReadOnly="True" Width="60" />
+                                        <DataGridTextColumn Header="Paid Date" Binding="{Binding Path=STD_REC_DATE, StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="80" />
+                                        <DataGridTextColumn Header="Paid Months" Binding="{Binding Path=PAID_FOR_MONTHS}" IsReadOnly="True" Width="80" />
+                                        <DataGridTextColumn Header="Due Date" Binding="{Binding Path=VALID_DUE_DATE, StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="80" />
+                                        <DataGridTemplateColumn Width="40"  >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <mui:ModernButton x:Name="btnDoPayment" IconData="{Binding Data, Source={StaticResource ImgPayment}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="{Binding Path=STD_REC_DATE}" Click="btnDoPayment_Click" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                            <DataGridTemplateColumn.CellStyle >
+                                                <Style TargetType="DataGridCell">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding PAY_ARR_FLG}" Value="0">
+                                                            <Setter Property="Background" Value="White" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding PAY_ARR_FLG}" Value="1">
+                                                            <Setter Property="Background" Value="Red" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGridTemplateColumn.CellStyle>                                           
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="40" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <mui:ModernButton x:Name="btnDeletePayment" IconData="{Binding Data, Source={StaticResource ImgDelete}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Delete Payment" Click="btnDeletePayment_Click"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </GroupBox>
+                        </TabItem>
+                        <TabItem Header=" Accessory" Visibility="Hidden">
+                            <GroupBox x:Name="grpAssosory"  >
+                                <GroupBox.Header>
+                                    <mui:ModernButton x:Name="btnAddNewAssosory" IconData="{Binding Data, Source={StaticResource ImgAddTute}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Add Assosory" Click="btnAddNewAssosory_Click"/>
+                                </GroupBox.Header>
+                                <DataGrid Name="grdAssosory" AutoGenerateColumns="False"  CanUserAddRows="False" RowHeaderWidth="0" >
+                                    <DataGrid.Resources>
+                                        <mycls:DoubleToVisaulConverter x:Key="DoubleToVis" />
+                                    </DataGrid.Resources>
+                                    <DataGrid.Columns  >
+                                        <DataGridTextColumn Header="ID" Binding="{Binding Path=ACC_ID}" IsReadOnly="True"  Width="140" Visibility="Hidden"  />
+                                        <DataGridTextColumn Header="Accessory" Binding="{Binding Path=ACC_NAME}" IsReadOnly="True"  Width="140"  />
+                                        <DataGridTextColumn Header="Issued Date" Binding="{Binding Path=ASS_REC_DATE, StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="80" />
+                                        <DataGridCheckBoxColumn Header="Payble" Binding="{Binding Path=ACC_PAYBLE_FLG}" IsReadOnly="True" Width="50" />
+                                        <DataGridTextColumn Header="Amount" Binding="{Binding Path=ASS_REC_AMOUNT}" IsReadOnly="True" Width="100"/>
+                                        <DataGridTextColumn Header="Paid Amount" Binding="{Binding Path=PAID_AMOUNT}" IsReadOnly="True" Width="100"/>
+                                        <DataGridTemplateColumn Width="40"  >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <mui:ModernButton x:Name="btnDoAssosoryPayment" IconData="{Binding Data, Source={StaticResource ImgPayment}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Make Payment" Click="btnDoAssosoryPayment_Click" 
+                                                                       Visibility="{Binding Path=ACC_PAYBLE_FLG,Converter={StaticResource DoubleToVis}}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                            <DataGridTemplateColumn.CellStyle >
+                                                <Style TargetType="DataGridCell">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding PAY_ARR_FLG}" Value="0">
+                                                            <Setter Property="Background" Value="White" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding PAY_ARR_FLG}" Value="1">
+                                                            <Setter Property="Background" Value="Red" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGridTemplateColumn.CellStyle>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </GroupBox>
+                        </TabItem>
+                        <TabItem Header=" Add More Classes" Visibility="Hidden">
+                            <GroupBox x:Name="grpaddClasses"  >
+                                <GroupBox.Header>
+                                    <mui:ModernButton x:Name="btnAddClasses" IconData="{Binding Data, Source={StaticResource ImgAddTute}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Add Class" Click="btnAddClasses_Click" />
+                                </GroupBox.Header>
+                                <DataGrid Name="grdAddClasses" AutoGenerateColumns="False"  CanUserAddRows="False" RowHeaderWidth="0" >
+                                    <DataGrid.Columns  >
+                                        <DataGridTextColumn Header="CLS_ID" Binding="{Binding Path=CLS_ID}" IsReadOnly="True" Visibility="Hidden" />
+                                        <DataGridTextColumn Header="Class Name" Binding="{Binding Path=CLS_NAME}" IsReadOnly="True" Width="250" />
+                                        <DataGridTextColumn Header="Class fee" Binding="{Binding Path=STD_CLASS_FEE}" IsReadOnly="True" Width="150"/>
+                                        <DataGridTemplateColumn Width="40" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <mui:ModernButton x:Name="btnEdit" IconData="{Binding Data, Source={StaticResource ImgEdit}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Edit Record" Click="btnEdit_Click_1"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn  Width="40" >
+                                            <DataGridTemplateColumn.CellTemplate >
+                                                <DataTemplate >
+                                                    <mui:ModernButton x:Name="btnRemove" IconData="{Binding Data, Source={StaticResource ImgDelete}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Remove Classes" Click="btnRemove_Click"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </GroupBox>
+                        </TabItem>
+                        <TabItem Header=" Movement" Visibility="Hidden">
+                            <DataGrid Name="grdMovement" AutoGenerateColumns="False"  CanUserAddRows="False" RowHeaderWidth="0" >
+                                <DataGrid.Columns  >
+                                    <DataGridTextColumn Header="Movement Date" Binding="{Binding Path=MOVEMENT_DATE, StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="110" />
+                                    <DataGridTextColumn Header="Movement Form Group" Binding="{Binding Path=OLD_CLS_NAME}" IsReadOnly="True" Width="200"/>
+                                    <DataGridTextColumn Header="Movement To Group" Binding="{Binding Path=CLS_NAME}" IsReadOnly="True" Width="200"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Header=" Introduced Students" Visibility="Hidden">
+                            <DataGrid Name="grdintroduced" AutoGenerateColumns="False"  CanUserAddRows="False" RowHeaderWidth="0" >
+                                <DataGrid.Resources>
+                                    <mycls:TelephoneNumberConvetor x:Key="TelephoneNumberConvetor" />
+                                </DataGrid.Resources>
+                                <DataGrid.Columns  >
+                                    <DataGridTextColumn Header="ID" Binding="{Binding Path=STD_ID}" IsReadOnly="True" Width="50" />
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Path=STD_INITIALS}" IsReadOnly="True" Width="110"  />
+                                    <DataGridTextColumn Header="Tag" Binding="{Binding Path=STD_SURNAME}" IsReadOnly="True" Width="100" />
+                                    <DataGridTextColumn Header="Full Name" Binding="{Binding Path=STD_FULL_NAME}" IsReadOnly="True" Width="150"/>
+                                    <DataGridTextColumn Header="Join Date" Binding="{Binding Path=STD_JOIN_DATE , StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="80" Visibility="Hidden"  />
+                                    <DataGridTextColumn Header="Telephone" Binding="{Binding Path=STD_TELEPHONE,Converter={StaticResource TelephoneNumberConvetor}}" IsReadOnly="True"  Width="110"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Class" Binding="{Binding Path=CLS_NAME}" IsReadOnly="True"  Width="180"/>
+                                    <DataGridCheckBoxColumn Header="" Binding="{Binding Path=STD_ACTIVE_FLG}" IsReadOnly="True" Width="30" IsThreeState="True" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </TabItem>
+                    </TabControl>
+
+                </GroupBox>
+
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

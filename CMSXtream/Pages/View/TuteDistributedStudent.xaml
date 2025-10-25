@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="CMSXtream.Pages.View.TuteDistributedStudent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="300">
+    <UserControl.Resources >
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/StyleResource/DataGridStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid Name="grdAccessoryStudent" AutoGenerateColumns="False"  CanUserAddRows="False" RowHeaderWidth="0"  EnableRowVirtualization = "True"  CanUserDeleteRows="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="STD_ID" Binding="{Binding Path=STD_ID}" IsReadOnly="True" Width="200" Visibility="Hidden" />
+                <DataGridTemplateColumn Header="Mark"  Width="50">
+                    <DataGridTemplateColumn.CellTemplate  >
+                        <DataTemplate>
+                            <CheckBox Name="chkMark" IsChecked="{Binding Path=DIS_FLG}" Checked="chkMark_Checked" Unchecked="chkMark_Unchecked" ></CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Member Name" Binding="{Binding Path=STD_INITIALS}" IsReadOnly="True" Width="250" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

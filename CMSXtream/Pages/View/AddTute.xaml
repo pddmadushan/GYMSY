@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="CMSXtream.Pages.View.AddTute"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+              xmlns:mui="http://firstfloorsoftware.com/ModernUI" 
+             d:DesignHeight="750" d:DesignWidth="500">
+    <UserControl.Resources >
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/StyleResource/DataGridStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/StyleResource/IconLibrary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ComboBox Name="cmbAccesory" Margin="126,5,86,5" />
+        <Label Content="Select an Accessory " HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top"/>
+        <mui:ModernButton x:Name="btnEdit" IconData="{Binding Data, Source={StaticResource ImgAddTute}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Add Accessory" Margin="415,0,31,0" Click="btnEdit_Click" />
+        <DataGrid Name="grdClassAccessory" AutoGenerateColumns="False"  CanUserAddRows="False" RowHeaderWidth="0" Grid.Row="2" EnableRowVirtualization = "True"  CanUserDeleteRows="False"  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ACC_ID" Binding="{Binding Path=ACC_ID}" IsReadOnly="True" Width="200" Visibility="Hidden" />
+                <DataGridTextColumn Header="ACC_AMOUNT" Binding="{Binding Path=ACC_AMOUNT}" IsReadOnly="True" Width="200" Visibility="Hidden" />
+                <DataGridTextColumn Header="Accessory Name" Binding="{Binding Path=ACC_NAME}" IsReadOnly="True" Width="200"  />
+                <DataGridTextColumn Header="Given Date" Binding="{Binding Path=CLS_ACC_REC_DATE , StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True" Width="80" />
+                <DataGridTemplateColumn Width="100" Header="Student Count"  >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Label Content="{Binding Path=STD_COUNT}" Margin="10,0,0,0" />
+                                <mui:ModernButton x:Name="btnViewStudent" Margin="50,0,0,0" IconData="{Binding Data, Source={StaticResource ImgStudents}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="View Student" Click="btnViewStudent_Click" />
+                                </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="40"  >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mui:ModernButton x:Name="btnDelete" IconData="{Binding Data, Source={StaticResource ImgDelete}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Delete Record" Click="btnDelete_Click" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

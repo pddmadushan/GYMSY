@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="CMSXtream.Pages.DataEntry.DiviceMaintance"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CMSXtream.Pages.DataEntry"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="580">
+    <Grid HorizontalAlignment="Left" Margin="0,10,0,0" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="250"/>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition MinWidth="250"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <GroupBox x:Name="grpDevice1" Grid.Column="0" Header="Master Device" >
+            <Grid HorizontalAlignment="Left" Margin="0,10,0,0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="250"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                </Grid.RowDefinitions>
+                <Button x:Name="divCon1" Content="Connect" Grid.Row="0" Click="divCon1_Click"  />
+                <Button x:Name="divDisCon1" Content="Disconnect" Grid.Row="2" Click="divDisCon1_Click"  />
+                <Button x:Name="divTimeSet" Content="Set Time" Grid.Row="4"  />
+                <Button x:Name="divSyncUser" Content="Sync Members" Grid.Row="6" Click="divSyncUser_Click"  />
+                <Button x:Name="divSyncLogs" Content="Sync Attendance Log" Grid.Row="8" Click="divSyncLogs_Click"  />
+                <Button x:Name="divEventSub" Content="Event Subscriber (User + Log)" Grid.Row="10" Click="divEventSub_Click"  />
+                <Button x:Name="divEventUnSub" Content="Event Unsubscriber (User + Log)" Grid.Row="12" Click="divEventUnSub_Click"  />
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="grpDevice2" Grid.Column="2" Header="Second Device" >
+            <Grid HorizontalAlignment="Left" Margin="0,10,0,0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="250"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="10" />
+                </Grid.RowDefinitions>
+                <Button x:Name="div2Con1" Content="Connect" Grid.Row="0" Click="div2Con1_Click"  />
+                <Button x:Name="div2DisCon1" Content="Disconnect" Grid.Row="2" Click="div2DisCon1_Click"  />
+                <Button x:Name="div2TimeSet" Content="Set Time" Grid.Row="4"  />
+                
+                <Button x:Name="div2SyncLogs" Content="Sync Attendance Log" Grid.Row="8" Click="div2SyncLogs_Click"  />
+                <Button x:Name="div2EventSub" Content="Event Subscriber (Log)" Grid.Row="10" Click="div2EventSub_Click"  />
+                <Button x:Name="div2EventUnSub" Content="Event Unsubscriber (Log)" Grid.Row="12" Click="div2EventUnSub_Click"  />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

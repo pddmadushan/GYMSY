@@ -1,0 +1,61 @@
+﻿<mui:ModernWindow x:Class="CMSXtream.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        Title="Muscle Care Fitness - More than a GYM" IsTitleVisible="True" 
+        ContentSource="/Pages/View/ClassAttendance.xaml" WindowState="Maximized" 
+        WindowStartupLocation="CenterScreen" Icon="Image/mcIcon.png"  >
+
+    <mui:ModernWindow.MenuLinkGroups >
+        <mui:LinkGroup DisplayName="Dashboard">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Today's Attendance" Source="/Pages/View/ClassAttendance.xaml" />
+                <mui:Link DisplayName="Device Controls" Source="/Pages/DataEntry/DiviceMaintance.xaml"  />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <!--<mui:LinkGroup DisplayName="Master" >
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="GROUP" Source="/Pages/View/ClassGroup.xaml" />
+                <mui:Link DisplayName="STUDENT" Source="/Pages/View/StudentSummery.xaml" />                
+                <mui:Link DisplayName="CATEGORY" Source="/Pages/View/ClassCategory.xaml" />
+                <mui:Link DisplayName="ACCESSORY" Source="/Pages/View/Accessory.xaml"  /> 
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>-->
+        <!--<mui:LinkGroup DisplayName="Function" >
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="ATTENDANCE" Source="/Pages/View/ClassAttendance.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>-->
+        <mui:LinkGroup x:Name="Member" DisplayName="Member" >
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Information" Source="/Pages/View/StudentSummery.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup x:Name="Admin" DisplayName="Administrator" >
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="GROUP" Source="/Pages/View/ClassGroup.xaml" /> 
+                <mui:Link DisplayName="USER ACCOUNT" Source="/Pages/View/UserAccount.xaml"  />
+                <mui:Link DisplayName="BACKUP DATABASE" Source="/Pages/DataEntry/BackUpBD.xaml"  />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup x:Name="SMS" DisplayName="SMS" >
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="SMS" Source="/Pages/DataEntry/SendSMS.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="Report" >
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Report" Source="/Pages/ReportFile.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="Incentive" >
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="Incentive" Source="/Pages/View/Incentive.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+    </mui:ModernWindow.MenuLinkGroups>
+    <!--<mui:ModernWindow.TitleLinks>
+         <mui:Link DisplayName="Settings" Source="/Pages/SettingsPage.xaml" />
+    </mui:ModernWindow.TitleLinks>-->
+  
+</mui:ModernWindow>

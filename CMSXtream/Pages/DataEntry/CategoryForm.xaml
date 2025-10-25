@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="CMSXtream.Pages.DataEntry.CategoryForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" >
+    <GroupBox x:Name="grpClassCategory"  Grid.Row="1" Grid.Column="0" Header="Class Category Information" >
+        <Grid HorizontalAlignment="Left" Margin="0,10,0,0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition MinWidth="250"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition MinWidth="250"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+
+
+            <Label  Content="Description:" Grid.Row="0" Grid.Column="0" Width="100"/>
+            <TextBox x:Name="txtName" Grid.Row="0" Grid.Column="1" Margin="0,0,0,4" MaxLength="250" MaxWidth="500"  />
+
+            <Label  Content="Category ID:" Grid.Row="0" Grid.Column="2" Margin="10,0,6,4"  FontWeight="Bold"/>
+            <Label   x:Name="lblAccessoryId"  Content="[New Category]" Grid.Row="0" Grid.Column="3"/>
+
+
+            <GroupBox x:Name="grpCategoryAccesory" Header="Accesory Information" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" Width="535" MaxHeight="500" >
+                <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"  >
+
+                    <Grid Name="LayoutCategoryAccesory">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                        </Grid.RowDefinitions>
+
+                    </Grid>
+                </ScrollViewer>
+            </GroupBox>
+
+            <Button x:Name="btnSave"  Grid.Row="5" Grid.Column="3"  ToolTip="Save Record" Click="btnSave_Click"  Width="60" Height="60" Padding="0,0" BorderThickness="1"  Margin="0,0,70,0" >
+                <Image Name="imgSave" Source ="pack://application:,,,/Image/ImgBtnSave.png" Width="60" Height="60" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   >
+                </Image>
+            </Button>
+            <Button x:Name="btnDelete"  Grid.Row="5" Grid.Column="3" ToolTip="Delete Record"   Width="60" Height="60" Padding="0,0" BorderThickness="1" Margin="70,0,0,0" Click="btnDelete_Click"  >
+                <Image Name="imgDelete" Source ="pack://application:,,,/Image/ImgBtnDelete.png" Width="60" Height="60" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   >
+                </Image>
+            </Button>
+
+        </Grid>
+    </GroupBox>
+</UserControl>
