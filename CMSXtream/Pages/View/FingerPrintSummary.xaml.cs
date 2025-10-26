@@ -60,13 +60,9 @@ namespace CMSXtream.Pages.View
                 if (table.Rows.Count > 0)
                 {
                     grdFPSys.ItemsSource = table.DefaultView;
-                    btnUpdatetoPrimaryMachin.IsEnabled = true;
-                    btnUpdatetoSecondoryMachin.IsEnabled = true;
                 }
                 else
                 {
-                    btnUpdatetoPrimaryMachin.IsEnabled = false;
-                    btnUpdatetoSecondoryMachin.IsEnabled = false;
                     grdFPSys.ItemsSource = null;
                 }
                 string strCardno = usersPF.Tables[1].Rows[0]["CAREDNUMBER"].ToString();
@@ -77,9 +73,21 @@ namespace CMSXtream.Pages.View
                 {
                     lblSysCardPw.Content = "CRD: " + strCardno;
                 }
-                if (strPassword != "") 
+                if (strPassword != "")
                 {
                     lblSysCardPw.Content = lblSysCardPw.Content + "PW: " + strPassword;
+                }
+
+                if (table.Rows.Count == 0 && lblSysCardPw.Content.ToString().Trim() == "")
+                {
+                    btnUpdatetoPrimaryMachin.IsEnabled = false;
+                    btnUpdatetoSecondoryMachin.IsEnabled = false;
+                }
+                else
+                {
+                    btnUpdatetoPrimaryMachin.IsEnabled = true;
+                    btnUpdatetoSecondoryMachin.IsEnabled = true;
+
                 }
             }
             catch (Exception ex)
