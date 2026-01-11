@@ -1,9 +1,14 @@
 ﻿using CMSXtream;
+using CMSXtream.Handlers;
 using System;
 using System.Data;
+using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Xml.Linq;
 using XtreamDataAccess;
 
 namespace WpfApplication2
@@ -13,7 +18,7 @@ namespace WpfApplication2
     /// </summary>
     public partial class MainWindow : Window
     {
-          
+
         public Boolean Login { get; set; }
         //private DispatcherTimer timer;
         public MainWindow()
@@ -29,7 +34,7 @@ namespace WpfApplication2
                 if (IP != null)
                 {
                     IPAdress = IP.ToString();
-                }                
+                }
 
                 var IP_2 = System.Configuration.ConfigurationManager.AppSettings.Get("DeviceIP_2");
                 string IPAdress_2 = "";
@@ -43,6 +48,16 @@ namespace WpfApplication2
                 StaticProperty.SKTPortName = System.Configuration.ConfigurationManager.AppSettings.Get("COMPORT").ToString();
                 StaticProperty.SKTCommKey = System.Configuration.ConfigurationManager.AppSettings.Get("COMMKEY").ToString();
 
+                if (!ValidLicense())
+                {
+                    txtUserName.Visibility = System.Windows.Visibility.Hidden;
+                    txtPassword.Visibility = System.Windows.Visibility.Hidden;
+                    btnLogin.Visibility = System.Windows.Visibility.Hidden;
+                    btnConnect.Visibility = System.Windows.Visibility.Hidden;
+                    pbStatus.Visibility = Visibility.Hidden;
+                    return;
+                }
+
                 if (StaticProperty.SKTIPAddres == "")
                 {
                     LoadLogin();
@@ -52,10 +67,9 @@ namespace WpfApplication2
                     txtUserName.Visibility = System.Windows.Visibility.Hidden;
                     txtPassword.Visibility = System.Windows.Visibility.Hidden;
                     btnLogin.Visibility = System.Windows.Visibility.Hidden;
-                    //grdStudentAttendance.Visibility = System.Windows.Visibility.Hidden;
                 }
 
-                //SetLogin();
+                SetLogin();
 
             }
             catch (Exception ex)
@@ -70,8 +84,9 @@ namespace WpfApplication2
         {
             try
             {
+
                 txtUserName.Visibility = System.Windows.Visibility.Visible;
-                txtPassword.Visibility = System.Windows.Visibility.Visible;               
+                txtPassword.Visibility = System.Windows.Visibility.Visible;
                 pbStatus.Visibility = System.Windows.Visibility.Hidden;
                 btnConnect.Visibility = System.Windows.Visibility.Hidden;
                 btnLogin.Visibility = System.Windows.Visibility.Visible;
@@ -80,14 +95,6 @@ namespace WpfApplication2
 
                 string ComName = System.Configuration.ConfigurationManager.AppSettings.Get("CompanyName").ToString();
                 CMSXtream.StaticProperty.ClientName = ComName;
-
-                //BindStudentGrid();
-
-                //Int32 TimeInterval = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings.Get("RefershTimeInterval").ToString());
-                //timer = new DispatcherTimer(new TimeSpan(0, 0, TimeInterval), DispatcherPriority.Normal, delegate
-                //{
-                //    BindStudentGrid();
-                //}, this.Dispatcher);
             }
             catch (Exception ex)
             {
@@ -99,7 +106,8 @@ namespace WpfApplication2
 
         private void LoadAttSync()
         {
-            try {
+            try
+            {
 
                 if (StaticProperty.SKTIPAddres != "")
                 {
@@ -171,22 +179,22 @@ namespace WpfApplication2
                         setTime(diviceTime.Value);
 
                         SyncUserLog();
-                        
+
                         SyncAttendanceLog();
                         SyncAttendanceLog2();
-                        
+
                         DeleteAttendanceLog();
                         DeleteAttendanceLog2();
 
-                        DeleteUserFringerPint();    
-                        
-                        SendPaymentDailySMS();    
-                        
+                        DeleteUserFringerPint();
+
+                        SendPaymentDailySMS();
+
                         LoadLogin();
                     }
                     else
                     {
-                        MessageBox.Show("Unablr to connect to the Device"); 
+                        MessageBox.Show("Unablr to connect to the Device");
                     }
                 }
             }
@@ -200,22 +208,23 @@ namespace WpfApplication2
 
         private void BindStudentGrid()
         {
-            try { 
-                    StudentDA _clsStudent = new StudentDA();
-                    _clsStudent.CLS_ID = 1;
-                    _clsStudent.CLS_HOLD_FLG = 1;
-                    _clsStudent.CLS_REC_DATE = DateTime.Now ;
+            try
+            {
+                StudentDA _clsStudent = new StudentDA();
+                _clsStudent.CLS_ID = 1;
+                _clsStudent.CLS_HOLD_FLG = 1;
+                _clsStudent.CLS_REC_DATE = DateTime.Now;
 
-                    DataTable table = _clsStudent.SelectClassAttendance().Tables[0];
-      
-                    if (table.Rows.Count > 0)
-                    {
-                        grdStudentAttendance.ItemsSource = table.DefaultView;
-                    }
-                    else
-                    {
-                        grdStudentAttendance.ItemsSource = null;
-                    }
+                DataTable table = _clsStudent.SelectClassAttendance().Tables[0];
+
+                if (table.Rows.Count > 0)
+                {
+                    grdStudentAttendance.ItemsSource = table.DefaultView;
+                }
+                else
+                {
+                    grdStudentAttendance.ItemsSource = null;
+                }
             }
             catch (Exception ex)
             {
@@ -235,10 +244,15 @@ namespace WpfApplication2
         {
             txtUserName.Text = "sysadmin";
             txtPassword.Password = "0772018009";
+            btnKeyGen.Visibility = Visibility.Visible;            
+            btnUpdateLicenseKey.Visibility = Visibility.Visible;
+
+            txtLicenseKey.Visibility = Visibility.Visible;
+            txtLicenseKey.Text = "G0000FZQzZJd00NfslXdJ00PaMRkVxY00UiaGhUR05000KN";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             errorValidator.Visibility = System.Windows.Visibility.Hidden;
             if (txtUserName.Text.Trim() == string.Empty)
             {
@@ -457,7 +471,7 @@ namespace WpfApplication2
 
                 if (StaticProperty.SDK.GetConnectState())
                 {
-                    Task<int> task = Task.Run(() => StaticProperty.SDK.sta_readAttLog());                    
+                    Task<int> task = Task.Run(() => StaticProperty.SDK.sta_readAttLog());
                     task.ContinueWith(antecedent =>
                     {
                         if (antecedent.IsFaulted)
@@ -662,7 +676,7 @@ namespace WpfApplication2
         {
             try
             {
-                    lblError.Content = messageLable;
+                lblError.Content = messageLable;
             }
             catch (Exception ex)
             {
@@ -721,6 +735,220 @@ namespace WpfApplication2
                 StaticProperty.SDK_2.sta_SetDeviceTime(lblOutputInfo, DateTime.Now);
                 btnSetTime2.Visibility = Visibility.Hidden;
             }
+        }
+        
+        private void btnSetTime3_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnKeyGen_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string Key = txtLicenseKey.Text.Trim();
+                string newKey = HashGenerator.Encrypt(Key);
+                txtLicenseKey.Text = newKey;
+            }
+            catch (Exception ex)
+            {
+                LogFile logger = new LogFile();
+                logger.MyLogFile(ex);
+                MessageBox.Show("System error has occurred.Please check log file!", StaticProperty.ClientName, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.No);
+            }
+        }
+        private Boolean ValidLicense()
+        {
+            try
+            {
+                lblError.Content = "";
+                LoginDA loginDA = new LoginDA();
+                System.Data.DataTable table = loginDA.GetTenantLicensesInfo();
+
+                if (table.Rows.Count == 0)
+                {
+                    MessageBox.Show("Your product is not installed with a valid license key.", StaticProperty.ClientName, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.No);
+                    EnableKeyControll();
+                    return false;
+                }
+
+                string newKey = table.Rows[0][1].ToString();
+                if (!ValidateLicenseKey(newKey))
+                {
+                    MessageBox.Show("The license key is no longer valid. It may have expired.", StaticProperty.ClientName, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.No);
+                    EnableKeyControll();
+                    return false;
+                }
+
+                string deKey = HashGenerator.Decrypt(newKey);
+                string decriptKey = HashGenerator.ResolveKey(deKey);
+                string tenant = decriptKey.Substring(0, 4);
+                string day = decriptKey.Substring(4, 2);
+                string month = decriptKey.Substring(6, 2);
+                string Year = decriptKey.Substring(8, 2);
+                string amount = decriptKey.Substring(10, 5);
+                string updateAmount = deKey.Substring(deKey.Length - 1);
+
+                string dateText = day + "/" + month + "/" + Year;
+                DateTime date;
+                DateTime.TryParseExact(
+                            dateText,
+                            "dd/MM/yy",
+                            CultureInfo.InvariantCulture,
+                            DateTimeStyles.None,
+                            out date);
+
+                if (date.AddDays(-7) < DateTime.Now)
+                {
+                    lblError.Content = "[" + tenant + "]Your license is about to expire.\r\nKindly complete the payment of " + double.Parse(amount) + " before " + dateText + " to keep your license active.";
+                    EnableKeyControll();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogFile logger = new LogFile();
+                logger.MyLogFile(ex);
+                MessageBox.Show("System error has occurred.Please check log file!", StaticProperty.ClientName, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.No);
+            }
+            return false;
+        }
+
+        private void btnUpdateLicenseKey_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string newKey = txtLicenseKey.Text.Trim();
+                if (!ValidateLicenseKey(newKey))
+                {
+                    MessageBox.Show("Please enter valid license Key", StaticProperty.ClientName, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.No);
+                    txtLicenseKey.Text = "";
+                    return;
+                }
+
+                string deKey = HashGenerator.Decrypt(newKey);
+                string decriptKey = HashGenerator.ResolveKey(deKey);
+                string tenant = decriptKey.Substring(0, 4);
+                string day = decriptKey.Substring(4, 2);
+                string month = decriptKey.Substring(6, 2);
+                string Year = decriptKey.Substring(8, 2);
+                string amount = decriptKey.Substring(10, 5);
+                string updateAmount = deKey.Substring(deKey.Length - 1);
+
+                string dateText = day + "/" + month + "/" + Year;
+                DateTime date;
+                DateTime.TryParseExact(
+                            dateText,
+                            "dd/MM/yy",
+                            CultureInfo.InvariantCulture,
+                            DateTimeStyles.None,
+                            out date);
+
+                LoginDA loginDA = new LoginDA();
+                loginDA.SaveTenantLicenses(tenant, newKey, Int32.Parse(amount), updateAmount);
+                lblError.Content = "";
+                txtLicenseKey.Text = "";
+                EnableLogginControll();
+
+            }
+            catch (Exception ex)
+            {
+                LogFile logger = new LogFile();
+                logger.MyLogFile(ex);
+                MessageBox.Show("Please enter valid license Key.Please check log file!", StaticProperty.ClientName, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.No);
+            }
+        }
+
+        private Boolean ValidateLicenseKey(string newKey)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(newKey))
+                {
+                    return false;
+                }
+                string deKey = HashGenerator.Decrypt(newKey);
+                string decriptKey = HashGenerator.ResolveKey(deKey);
+                if (decriptKey.Length != 15)
+                {
+                    return false;
+                }
+
+                string tenant = decriptKey.Substring(0, 4);
+                string day = decriptKey.Substring(4, 2);
+                string month = decriptKey.Substring(6, 2);
+                string Year = decriptKey.Substring(8, 2);
+                string amount = decriptKey.Substring(10, 5);
+                string updateAmount = deKey.Substring(deKey.Length - 1);
+
+                string dateText = day + "/" + month + "/" + Year;
+                DateTime date;
+                if (!DateTime.TryParseExact(
+                            dateText,
+                            "dd/MM/yy",
+                            CultureInfo.InvariantCulture,
+                            DateTimeStyles.None,
+                            out date))
+                {
+                    return false;
+                }
+
+                if (date < DateTime.Now)
+                {
+                    return false;
+                }
+
+                if (updateAmount != "U" && updateAmount != "N")
+                {
+                    return false;
+                }
+                LoginDA loginDA = new LoginDA();
+                System.Data.DataTable table = loginDA.GetTenantLicensesInfo();
+                string tenantSys = table.Rows[0][0].ToString();
+                if (tenant != tenantSys)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogFile logger = new LogFile();
+                logger.MyLogFile(ex);
+                return false;
+            }
+        }
+        private void EnableLogginControll()
+        {
+            if (StaticProperty.SKTIPAddres == "")
+            {
+                LoadLogin();
+            }
+            else
+            {
+                pbStatus.Visibility = Visibility.Visible;
+                btnConnect.Visibility = Visibility.Visible;
+
+                txtUserName.Visibility = System.Windows.Visibility.Hidden;
+                txtPassword.Visibility = System.Windows.Visibility.Hidden;
+                btnLogin.Visibility = System.Windows.Visibility.Hidden;
+            }
+
+            txtLicenseKey.Visibility = Visibility.Hidden;
+            btnUpdateLicenseKey.Visibility = Visibility.Hidden;
+        }
+        private void EnableKeyControll()
+        {
+            if (StaticProperty.SKTIPAddres == "")
+            {
+                pbStatus.Visibility = Visibility.Hidden;
+                btnConnect.Visibility = Visibility.Hidden;
+            }
+
+            txtLicenseKey.Visibility = Visibility.Visible;
+            btnUpdateLicenseKey.Visibility = Visibility.Visible;
         }
     }
 }

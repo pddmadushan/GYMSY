@@ -7,10 +7,6 @@ using System.IO;
 using System.Drawing;
 using XtreamDataAccess;
 
-using System.Threading.Tasks;
-using CMSXtream;
-using System.Security.Cryptography.X509Certificates;
-
 namespace StandaloneSDKDemo
 {
     public class SDKHelper
@@ -918,17 +914,17 @@ namespace StandaloneSDKDemo
                     if (strPassword == null)
                     {
                         strPassword = "";
-                    }                   
-                }
+                    }
 
-                SMSDA _clsAtt = new SMSDA();
-                if (IamPrimaryMaching)
-                {
-                    _clsAtt.InsertFringerPrintDelFlg(sUserID, strCardno, strPassword);
-                }
-                else
-                {
-                    _clsAtt.InsertFringerPrintInactive(sUserID);
+                    SMSDA _clsAtt = new SMSDA();
+                    if (IamPrimaryMaching)
+                    {
+                        _clsAtt.InsertFringerPrintDelFlg(sUserID, strCardno, strPassword);
+                    }
+                    else
+                    {
+                        _clsAtt.InsertFringerPrintInactive(sUserID);
+                    }
                 }
 
                 if (strCardno != "0" || strPassword != "")

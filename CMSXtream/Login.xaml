@@ -118,7 +118,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
         <Grid Name="Grid2"  Grid.Column="4" Grid.Row="1" Grid.RowSpan="3">
             <Grid.ColumnDefinitions >
                 <ColumnDefinition Width="5" />
@@ -134,10 +133,10 @@
             <Label Name="lblMasg" Grid.Column="1" Grid.Row="0" FontSize="10"  />
             <Label Name="lblMasg_2" Grid.Column="1" Grid.Row="1" FontSize="10"  />
             <ProgressBar Name="pbStatus" Minimum="0" Maximum="100" Grid.Column="1" Grid.Row="3" IsIndeterminate="True" ></ProgressBar>
-            <Label Name="lblError" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"  Foreground="Red" FontSize="10" >
+            <Label Name="lblError" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2"  Foreground="Red" FontSize="10" >
             </Label>
         </Grid>
-        <Button Name="btnConnect" Content="SYNCHRONIZE ATTENDANCE"  Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left"  VerticalAlignment="Top"   Click="Button_Click_2" Background="{x:Null}" FontWeight="Bold" Grid.ColumnSpan="3" Margin="0.4,30.2,0,0" Grid.RowSpan="2" Width="230" >
+        <Button Name="btnConnect" Content="SYNCHRONIZE ATTENDANCE"  Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Top"   Click="Button_Click_2" Background="{x:Null}" FontWeight="Bold"  >
             <Button.Foreground>
                 <SolidColorBrush Color="Black" Opacity="0.75"/>
             </Button.Foreground>
@@ -152,5 +151,16 @@
                 <SolidColorBrush Color="Purple" Opacity="0.75"/>
             </Button.Foreground>
         </Button>
+        <Button Name="btnUpdateLicenseKey" Content="UPDATE LICENSE KEY"  Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right"  VerticalAlignment="Top"  Background="{x:Null}" FontWeight="Bold" Grid.ColumnSpan="2" Margin="0.4,30.2,0,0" Grid.RowSpan="2" Width="160"  Visibility="Hidden" Click="btnUpdateLicenseKey_Click">
+            <Button.Foreground>
+                <SolidColorBrush Color="YellowGreen"/>
+            </Button.Foreground>
+        </Button>
+        <Button Name="btnKeyGen" Content="KY"  Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Top"  Background="{x:Null}" FontWeight="Bold" Margin="0,30,0,0" Grid.RowSpan="2" Width="50"  Visibility="Hidden" Click="btnKeyGen_Click">
+            <Button.Foreground>
+                <SolidColorBrush Color="YellowGreen"/>
+            </Button.Foreground>
+        </Button>
+        <TextBox Name="txtLicenseKey" Grid.Column="4" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="20" Margin="0.4,30.2,0,0" Width="420" Grid.Row="3"  Visibility="Hidden"/>
     </Grid>
 </Window>

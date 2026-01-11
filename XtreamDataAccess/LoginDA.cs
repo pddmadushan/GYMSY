@@ -98,5 +98,29 @@ namespace XtreamDataAccess
             return Convert.ToBase64String(hashBytes);
         }
 
+        public DataTable GetTenantLicensesInfo()
+        {
+            try
+            {
+                object[] parameterValues = null;
+                return SqlHelper.ExecuteDataset(getConnetctionString, "sp_GetAllTenantLicenses", parameterValues).Tables[0];
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public void SaveTenantLicenses(string TenentID, string LicenseKeyHash,Int32 Amount , string AmountUpdate)
+        {
+            try
+            {
+                object[] parameterValues = { TenentID, LicenseKeyHash, Amount , AmountUpdate };
+                SqlHelper.ExecuteNonQuery(getConnetctionString, "sp_UpdateTenantLicense", parameterValues);
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }
