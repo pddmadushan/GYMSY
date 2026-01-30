@@ -36,7 +36,11 @@ namespace CMSXtream.Pages.DataEntry
             cmbSearchType.Items.Add(new KeyValuePair<string, string>("2", "Name"));
             cmbSearchType.Items.Add(new KeyValuePair<string, string>("3", "NIC"));
             cmbSearchType.Items.Add(new KeyValuePair<string, string>("4", "Telephone"));
-            cmbSearchType.Items.Add(new KeyValuePair<string, string>("5", "Member Group"));
+            cmbSearchType.Items.Add(new KeyValuePair<string, string>("5", "Member Group All"));
+            cmbSearchType.Items.Add(new KeyValuePair<string, string>("6", "Member Group Active"));
+            cmbSearchType.Items.Add(new KeyValuePair<string, string>("7", "Member Group Inactive"));
+            cmbSearchType.Items.Add(new KeyValuePair<string, string>("8", "Active All"));
+            cmbSearchType.Items.Add(new KeyValuePair<string, string>("9", "inactive All"));
 
             cmbSearchType.SelectedIndex = 5;
             cmbClassGroup.SelectedIndex = -1;
@@ -108,25 +112,24 @@ namespace CMSXtream.Pages.DataEntry
         private void cmbSearchType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
-            {
-                if (cmbSearchType.SelectedValue.ToString() == "0")
-                {
-                    txtSearchText.Text = string.Empty;
-                    txtSearchText.IsEnabled = false;
-                }
-                else
-                {
-                    txtSearchText.IsEnabled = true;
-                }
-                if (cmbSearchType.SelectedValue.ToString() == "5")
+            {                
+                if (cmbSearchType.SelectedValue.ToString() == "5" || cmbSearchType.SelectedValue.ToString() == "6" || cmbSearchType.SelectedValue.ToString() == "7")
                 {
                     txtSearchText.Visibility = System.Windows.Visibility.Hidden;
                     cmbClassGroup.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
                 {
-                    txtSearchText.Visibility = System.Windows.Visibility.Visible;
                     cmbClassGroup.Visibility = System.Windows.Visibility.Hidden;
+                    if (cmbSearchType.SelectedValue.ToString() == "0" || cmbSearchType.SelectedValue.ToString() == "8" || cmbSearchType.SelectedValue.ToString() == "9")
+                    {
+                        txtSearchText.Text = string.Empty;
+                        txtSearchText.IsEnabled = false;
+                    }
+                    else
+                    {
+                        txtSearchText.IsEnabled = true;
+                    }
                 }
             }
             catch (Exception ex)

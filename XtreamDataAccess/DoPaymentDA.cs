@@ -179,6 +179,18 @@ namespace XtreamDataAccess
                  throw;
              }
          }
+        public Int32 AddMissingPayments()
+        {
+            try
+            {
+                object[] parameterValues = { STD_ID, PAID_YEAR, PAID_MONTH};
+                return SqlHelper.ExecuteNonQuery(getConnetctionString, "FIXED_MISSING_PAYMENT", parameterValues);
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
     }
 }

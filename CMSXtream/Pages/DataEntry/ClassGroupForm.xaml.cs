@@ -67,15 +67,15 @@ namespace CMSXtream.Pages.DataEntry
                 txtComment.Text = clasAtt.CLS_COMMENT.ToString();
                 txtWeekNumber.Text = clasAtt.TOTAL_NUMBER_OF_WEEK.ToString();
                 rdbtnClass.IsChecked = clasAtt.IS_CLASS_FLG == 1 ? true : false;
-                if (clasAtt.IS_CLASS_FLG == 1)
-                {
-                    grdClassInfo.Visibility = System.Windows.Visibility.Visible;
-                }
-                else
-                {
-                    grdClassInfo.Visibility = System.Windows.Visibility.Hidden;
-                }
-                rdbtnClass.IsEnabled = false;
+                //if (clasAtt.IS_CLASS_FLG == 1)
+                //{
+                //    grdClassInfo.Visibility = System.Windows.Visibility.Visible;
+                //}
+                //else
+                //{
+                   grdClassInfo.Visibility = System.Windows.Visibility.Hidden;
+                //}
+                //rdbtnClass.IsEnabled = false;
                 LoadClassCombo();
             }
         }
@@ -108,7 +108,7 @@ namespace CMSXtream.Pages.DataEntry
                     return false;
                 }
 
-
+                /*
                 if (rdbtnClass.IsChecked.Value)
                 {
                     if (cmbClsCatogory.SelectedIndex < 0)
@@ -156,7 +156,7 @@ namespace CMSXtream.Pages.DataEntry
                         return false;
                     }
                 }
-
+                */
                 return true;
             }
             catch (Exception ex)
@@ -219,6 +219,7 @@ namespace CMSXtream.Pages.DataEntry
                     _clsClassGroup.classFeilds.CLS_FEE = double.Parse(txtClsFee.Text.Trim());
                     if (rdbtnClass.IsChecked.Value)
                     {
+                        /*
                         _clsClassGroup.classFeilds.CAT_ID = Int32.Parse(cmbClsCatogory.SelectedValue.ToString());
                         _clsClassGroup.classFeilds.CLS_START_DATE = dtpStartDate.SelectedDate.Value;
                         _clsClassGroup.classFeilds.CLS_DAY = Int32.Parse(cmbday.SelectedValue.ToString());
@@ -236,19 +237,22 @@ namespace CMSXtream.Pages.DataEntry
                             {
                                 updateClassFees = 1 ; 
                             }
-                        }
+                        }*/
+                        _clsClassGroup.classFeilds.IS_CLASS_FLG = 1;
                     }
                     else
                     {
-                        _clsClassGroup.classFeilds.CAT_ID = 0;
-                        _clsClassGroup.classFeilds.CLS_START_DATE = DateTime.Now;
-                        _clsClassGroup.classFeilds.CLS_DAY = 0;
-                        _clsClassGroup.classFeilds.CLS_TIME = 0;
-                        _clsClassGroup.classFeilds.CLS_DURATION = 0;
-                        _clsClassGroup.classFeilds.CLS_ADMITION_AMT = 0;
-                        _clsClassGroup.classFeilds.TOTAL_NUMBER_OF_WEEK = 0;
                         _clsClassGroup.classFeilds.IS_CLASS_FLG = 0;
                     }
+
+                    _clsClassGroup.classFeilds.CAT_ID = 0;
+                    _clsClassGroup.classFeilds.CLS_START_DATE = DateTime.Now;
+                    _clsClassGroup.classFeilds.CLS_DAY = 0;
+                    _clsClassGroup.classFeilds.CLS_TIME = 0;
+                    _clsClassGroup.classFeilds.CLS_DURATION = 0;
+                    _clsClassGroup.classFeilds.CLS_ADMITION_AMT = 0;
+                    _clsClassGroup.classFeilds.TOTAL_NUMBER_OF_WEEK = 0;
+
                     System.Data.DataTable table = _clsClassGroup.InsertClass(updateClassFees).Tables[0];
                     lblClassId.Content = table.Rows[0]["CLS_ID"].ToString();
                     string returnMsg = table.Rows[0]["RETURN_MSG"].ToString();

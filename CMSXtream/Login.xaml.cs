@@ -1,6 +1,7 @@
 ﻿using CMSXtream;
 using CMSXtream.Handlers;
 using System;
+using System.ComponentModel;
 using System.Data;
 using System.Globalization;
 using System.Linq;
@@ -773,9 +774,10 @@ namespace WpfApplication2
                 }
 
                 string newKey = table.Rows[0][1].ToString();
+                string tenantDB = table.Rows[0][0].ToString();
                 if (!ValidateLicenseKey(newKey))
                 {
-                    MessageBox.Show("The license key is no longer valid. It may have expired.", StaticProperty.ClientName, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.No);
+                    MessageBox.Show("The license key is no longer valid. It may have expired. [" + tenantDB + "]", StaticProperty.ClientName, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.No);
                     EnableKeyControll();
                     return false;
                 }
@@ -803,7 +805,7 @@ namespace WpfApplication2
                     lblError.Content = "[" + tenant + "]Your license is about to expire.\r\nKindly complete the payment of " + double.Parse(amount) + " before " + dateText + " to keep your license active.";
                     EnableKeyControll();
                 }
-
+                CMSXtream.StaticProperty.Clientlicense = "[" + tenant + "] license valid until " + dateText;
                 return true;
             }
             catch (Exception ex)

@@ -10,6 +10,7 @@ namespace CMSXtream
     public class StaticProperty
     {
         public static string ClientName;
+        public static string Clientlicense;
         public static string SaveMessage = "Record has been saved successfully!";
         public static string UnabletoSaveMessage = "Unable to save record !";
         public static string LoginUserID;

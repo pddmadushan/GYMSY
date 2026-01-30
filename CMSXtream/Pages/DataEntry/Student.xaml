@@ -185,10 +185,10 @@
                                     <DataGrid.Columns  >
                                         <DataGridTextColumn Header="STM_YEAR" Binding="{Binding Path=STM_YEAR}" Visibility="Hidden" />
                                         <DataGridTextColumn Header="STM_MONTH" Binding="{Binding Path=STM_MONTH}" Visibility="Hidden" />
-                                        <DataGridTextColumn Header="CLS_ID" Binding="{Binding Path=CLS_ID}" Visibility="Hidden" />
+                                        <DataGridTextColumn Header="Group" Binding="{Binding Path=CLS_ID}" Visibility="Hidden" />
                                         <DataGridTextColumn Header="Year" Binding="{Binding Path=STM_YEAR}"  IsReadOnly="True" Visibility="Hidden" />
                                         <DataGridTextColumn Header="Month" Binding="{Binding Path=STM_MONTH_NAME}"  IsReadOnly="True" Width="70" />
-                                        <DataGridTextColumn Header="Class" Binding="{Binding Path=CLS_NAME}" IsReadOnly="True"  Width="140" Visibility="Hidden" />
+                                        <DataGridTextColumn Header="Class" Binding="{Binding Path=CLS_NAME}" IsReadOnly="True"  Width="140"/>
                                         <DataGridTextColumn Header="Total" Binding="{Binding Path=TO_CLS_COUNT}"  IsReadOnly="True" Width="40" Visibility="Hidden"/>
                                         <DataGridTemplateColumn Header="Attend" Width="55" Visibility="Hidden">
                                             <DataGridTemplateColumn.CellTemplate>
@@ -236,6 +236,34 @@
                                 </DataGrid>
                             </GroupBox>
                         </TabItem>
+                        <TabItem Header=" Add Multiple Groups">
+                            <GroupBox x:Name="grpaddClasses"  >
+                                <GroupBox.Header>
+                                    <mui:ModernButton x:Name="btnAddClasses" IconData="{Binding Data, Source={StaticResource ImgAddTute}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Add Class" Click="btnAddClasses_Click" />
+                                </GroupBox.Header>
+                                <DataGrid Name="grdAddClasses" AutoGenerateColumns="False"  CanUserAddRows="False" RowHeaderWidth="0" >
+                                    <DataGrid.Columns  >
+                                        <DataGridTextColumn Header="CLS_ID" Binding="{Binding Path=CLS_ID}" IsReadOnly="True" Visibility="Hidden" />
+                                        <DataGridTextColumn Header="Class Name" Binding="{Binding Path=CLS_NAME}" IsReadOnly="True" Width="250" />
+                                        <DataGridTextColumn Header="Class fee" Binding="{Binding Path=STD_CLASS_FEE}" IsReadOnly="True" Width="150"/>
+                                        <DataGridTemplateColumn Width="40" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <mui:ModernButton x:Name="btnEdit" IconData="{Binding Data, Source={StaticResource ImgEdit}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Edit Record" Click="btnEdit_Click_1"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn  Width="40" >
+                                            <DataGridTemplateColumn.CellTemplate >
+                                                <DataTemplate >
+                                                    <mui:ModernButton x:Name="btnRemove" IconData="{Binding Data, Source={StaticResource ImgDelete}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Remove Classes" Click="btnRemove_Click"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </GroupBox>
+                        </TabItem>
                         <TabItem Header=" Accessory" Visibility="Hidden">
                             <GroupBox x:Name="grpAssosory"  >
                                 <GroupBox.Header>
@@ -275,35 +303,7 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </GroupBox>
-                        </TabItem>
-                        <TabItem Header=" Add More Classes" Visibility="Hidden">
-                            <GroupBox x:Name="grpaddClasses"  >
-                                <GroupBox.Header>
-                                    <mui:ModernButton x:Name="btnAddClasses" IconData="{Binding Data, Source={StaticResource ImgAddTute}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Add Class" Click="btnAddClasses_Click" />
-                                </GroupBox.Header>
-                                <DataGrid Name="grdAddClasses" AutoGenerateColumns="False"  CanUserAddRows="False" RowHeaderWidth="0" >
-                                    <DataGrid.Columns  >
-                                        <DataGridTextColumn Header="CLS_ID" Binding="{Binding Path=CLS_ID}" IsReadOnly="True" Visibility="Hidden" />
-                                        <DataGridTextColumn Header="Class Name" Binding="{Binding Path=CLS_NAME}" IsReadOnly="True" Width="250" />
-                                        <DataGridTextColumn Header="Class fee" Binding="{Binding Path=STD_CLASS_FEE}" IsReadOnly="True" Width="150"/>
-                                        <DataGridTemplateColumn Width="40" >
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <mui:ModernButton x:Name="btnEdit" IconData="{Binding Data, Source={StaticResource ImgEdit}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Edit Record" Click="btnEdit_Click_1"/>
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn  Width="40" >
-                                            <DataGridTemplateColumn.CellTemplate >
-                                                <DataTemplate >
-                                                    <mui:ModernButton x:Name="btnRemove" IconData="{Binding Data, Source={StaticResource ImgDelete}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Remove Classes" Click="btnRemove_Click"/>
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </GroupBox>
-                        </TabItem>
+                        </TabItem>                      
                         <TabItem Header=" Movement" Visibility="Hidden">
                             <DataGrid Name="grdMovement" AutoGenerateColumns="False"  CanUserAddRows="False" RowHeaderWidth="0" >
                                 <DataGrid.Columns  >

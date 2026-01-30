@@ -114,7 +114,7 @@
                     </Image>
 
                 </Button>
-                <CheckBox Name="rdbtnClass" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top"  Content="Define a Group as a Class" Checked="rdbtnClass_Checked" Unchecked="rdbtnClass_Unchecked" Visibility="Hidden" />
+                <CheckBox Name="rdbtnClass" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top"  Content="Exclude Incentive" />
 
                 <GroupBox x:Name="grpStudentTransfer" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4"  Header="Transfer Continues Absent Students" Visibility="Hidden" >
 

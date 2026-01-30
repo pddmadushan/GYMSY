@@ -34,6 +34,7 @@
         <ComboBox x:Name="cmbClsGroup" Grid.Row="0" Grid.Column="0" Style="{DynamicResource ComboBoxFlatStyle}" TabIndex="0" SelectionChanged="cmbClsGroup_SelectionChanged" Margin="0,0,5,0" Visibility="Hidden"  />
         <Label Name="lblYearMonth" Grid.Row="1" Grid.Column="1" Visibility="Hidden" />
         <DatePicker Name="dtpPayMonth" Grid.Row="1" Grid.Column="1" Margin="0,0,131,0" local:DatePickerCalendar.IsMonthYear="True" local:DatePickerDateFormat.DateFormat="MMM-yyyy" Text="MMM-yyyy" SelectedDateChanged="dtpPayMonth_SelectedDateChanged" />
+        <mui:ModernButton x:Name="btnSyncPayment" Grid.Row="1" Grid.Column="1" Margin="187,0,35,0" IconData="{Binding Data, Source={StaticResource ImgPayment}}"  EllipseDiameter="25" EllipseStrokeThickness="1" ToolTip="Sync Payment" Click="btnSyncPayment_Click" />
          <Label Grid.Row="3" Grid.Column="0" Content="Monthly Member Fee" Margin="0,5,126,0" />
         <TextBox Grid.Row="3" Grid.Column="1" Name="txtAmount" IsEnabled="False" Margin="0,5,140,0" TextAlignment="Right" PreviewTextInput="NumberValidationTextBox"  MaxLength="6"  />
         <CheckBox Grid.Row="4" Grid.Column="1"  Name="chkCardIssue" Content="Card Issued" Checked="chkCardIssue_Checked" Unchecked="chkCardIssue_Unchecked" Visibility="Hidden" />

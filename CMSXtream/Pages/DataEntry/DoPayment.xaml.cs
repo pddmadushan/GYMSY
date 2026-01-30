@@ -268,7 +268,7 @@ namespace CMSXtream.Pages.DataEntry
                                     rec = StaticProperty.SDK.sta_SetUserFPInfo(sUserID, usersPF);
                                     if (rec != 1)
                                     {
-                                        MessageBox.Show("Unable to Delete date from the device.Error Code :" + rec.ToString(), StaticProperty.ClientName, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.No);
+                                        MessageBox.Show("Unable to update date to the device.Error Code :" + rec.ToString(), StaticProperty.ClientName, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.No);
                                     }
                                     else
                                     {
@@ -622,5 +622,27 @@ namespace CMSXtream.Pages.DataEntry
 
         }
 
+        private void btnSyncPayment_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MessageBoxResult result = MessageBox.Show("Do you want to update the payments of missing groups for " + dtpPayMonth.Text + "?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    DoPaymentDA _clsPayment = new DoPaymentDA();
+                    _clsPayment.STD_ID = studentId;
+                    _clsPayment.PAID_YEAR = dtpPayMonth.SelectedDate.Value.Year;
+                    _clsPayment.PAID_MONTH = dtpPayMonth.SelectedDate.Value.Month;
+                    _clsPayment.AddMissingPayments();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogFile logger = new LogFile();
+                logger.MyLogFile(ex);
+                MessageBox.Show("System error has occurred.Please check log file!", StaticProperty.ClientName, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.No);
+            }
+
+        }
     }
 }

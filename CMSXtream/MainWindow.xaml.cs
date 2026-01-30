@@ -27,7 +27,7 @@ namespace CMSXtream
             try
             {
 
-                this.Title = StaticProperty.ClientName + " [" + StaticProperty.LoginUserID + "]";
+                this.Title = StaticProperty.ClientName + " [" + StaticProperty.LoginUserID + "]" + "-" + CMSXtream.StaticProperty.Clientlicense;
                 if (StaticProperty.LoginisAdmin != "1")
                 {
                     var window = App.Current.MainWindow as ModernWindow;

@@ -663,7 +663,7 @@ namespace CMSXtream.Pages.DataEntry
                     Title = "Member Info",
                     Content = form,
                     ResizeMode = ResizeMode.NoResize,
-                    Width = 1000
+                    Width = 1100
                 };
 
                 StudentAttribute stAttPass = new StudentAttribute();
