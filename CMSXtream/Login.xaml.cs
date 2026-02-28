@@ -249,7 +249,8 @@ namespace WpfApplication2
             btnUpdateLicenseKey.Visibility = Visibility.Visible;
 
             txtLicenseKey.Visibility = Visibility.Visible;
-            txtLicenseKey.Text = "G0000FZQzZJd00NfslXdJ00PaMRkVxY00UiaGhUR05000KN";
+            //"G0001FZQzZJd28NfslXdJ11PaMRkVxY99UiaGhUR05000KN";
+            txtLicenseKey.Text = "G0000FZQzZJd00NfslXdJ00PaMRkVxY0000UiaGhUR05000KN";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -787,15 +788,15 @@ namespace WpfApplication2
                 string tenant = decriptKey.Substring(0, 4);
                 string day = decriptKey.Substring(4, 2);
                 string month = decriptKey.Substring(6, 2);
-                string Year = decriptKey.Substring(8, 2);
-                string amount = decriptKey.Substring(10, 5);
+                string Year = decriptKey.Substring(8, 4);
+                string amount = decriptKey.Substring(12, 5);
                 string updateAmount = deKey.Substring(deKey.Length - 1);
 
                 string dateText = day + "/" + month + "/" + Year;
                 DateTime date;
                 DateTime.TryParseExact(
                             dateText,
-                            "dd/MM/yy",
+                            "dd/MM/yyyy",
                             CultureInfo.InvariantCulture,
                             DateTimeStyles.None,
                             out date);
@@ -834,8 +835,8 @@ namespace WpfApplication2
                 string tenant = decriptKey.Substring(0, 4);
                 string day = decriptKey.Substring(4, 2);
                 string month = decriptKey.Substring(6, 2);
-                string Year = decriptKey.Substring(8, 2);
-                string amount = decriptKey.Substring(10, 5);
+                string Year = decriptKey.Substring(8, 4);
+                string amount = decriptKey.Substring(12, 5);
                 string updateAmount = deKey.Substring(deKey.Length - 1);
 
                 string dateText = day + "/" + month + "/" + Year;
@@ -872,7 +873,7 @@ namespace WpfApplication2
                 }
                 string deKey = HashGenerator.Decrypt(newKey);
                 string decriptKey = HashGenerator.ResolveKey(deKey);
-                if (decriptKey.Length != 15)
+                if (decriptKey.Length != 17)
                 {
                     return false;
                 }
@@ -880,15 +881,15 @@ namespace WpfApplication2
                 string tenant = decriptKey.Substring(0, 4);
                 string day = decriptKey.Substring(4, 2);
                 string month = decriptKey.Substring(6, 2);
-                string Year = decriptKey.Substring(8, 2);
-                string amount = decriptKey.Substring(10, 5);
+                string Year = decriptKey.Substring(8, 4);
+                string amount = decriptKey.Substring(12, 5);
                 string updateAmount = deKey.Substring(deKey.Length - 1);
 
                 string dateText = day + "/" + month + "/" + Year;
                 DateTime date;
                 if (!DateTime.TryParseExact(
                             dateText,
-                            "dd/MM/yy",
+                            "dd/MM/yyyy",
                             CultureInfo.InvariantCulture,
                             DateTimeStyles.None,
                             out date))

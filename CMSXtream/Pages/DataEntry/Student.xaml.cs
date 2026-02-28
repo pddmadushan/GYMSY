@@ -1695,7 +1695,7 @@ namespace CMSXtream.Pages.DataEntry
                     Title = "Introducer Info of " + lblStudentId.Content.ToString(),
                     Content = form,
                     ResizeMode = ResizeMode.NoResize,
-                    Width = 1000
+                    Width = 1100
                 };
 
                 StudentDA _clsStudent = new StudentDA();

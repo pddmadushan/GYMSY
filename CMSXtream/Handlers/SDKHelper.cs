@@ -1098,6 +1098,10 @@ namespace StandaloneSDKDemo
                     }
                     foundAuthmethod = fpTemplates.Count;
                 }
+                else
+                {
+                    foundAuthmethod = 1;
+                }
                 return foundAuthmethod;
             }
             catch

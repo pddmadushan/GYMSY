@@ -224,7 +224,7 @@ namespace CMSXtream.Pages.View
                     Title = "Add Member",
                     Content = form,
                     ResizeMode = ResizeMode.NoResize,
-                    Width = 1000
+                    Width = 1100
                 };
                 form.LoadFormContaint();
                 dialog.ShowDialog();
@@ -254,7 +254,7 @@ namespace CMSXtream.Pages.View
                     Title = "Edit Member",
                     Content = form,
                     ResizeMode = ResizeMode.CanResize,
-                    Width = 1000
+                    Width = 1100
                 };
 
                 StudentAttribute stAttPass = new StudentAttribute();
